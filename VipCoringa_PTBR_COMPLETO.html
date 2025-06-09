@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VipCoringa - Ferramentas de Rede</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+
+        /* Glow effect */
+        .glow {
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
+        }
+
+        /* Animated gradient border */
+        .gradient-border {
+            border: 2px solid transparent;
+            background: linear-gradient(#111111, #111111) padding-box,
+                        linear-gradient(45deg, #3b82f6, #ef4444) border-box;
+        }
+
+        /* Pulse animation */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        .animate-pulse-slow {
+            animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* Terminal typing animation */
+        .code-line {
+            overflow: hidden;
+            white-space: nowrap;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-200 font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="gradient-border fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <div class="flex items-center">
+                        <i class="fas fa-crown text-red-500 text-2xl mr-2"></i>
+                        <span class="text-2xl font-bold bg-gradient-to-r from-blue-500 via-white to-red-500 bg-clip-text text-transparent glow">VipCoringa</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-4">
+                        <a href="#home" class="text-blue-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Início</a>
+                        <a href="#commands" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Comandos</a>
+                        <a href="#wifi" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Wi-Fi</a>
+                        <a href="#network" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Rede</a>
+                        <a href="#system" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Sistema</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="mobile-menu-button text-gray-400 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu hidden md:hidden bg-black/90 backdrop-blur-sm">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="text-blue-400 block px-3 py-2 rounded-md text-base font-medium">Início</a>
+                <a href="#commands" class="text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Comandos</a>
+                <a href="#wifi" class="text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Ferramentas Wi-Fi</a>
+                <a href="#network" class="text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Rede</a>
+                <a href="#system" class="text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Sistema</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black via-blue-900/10 to-black">
+        <div class="max-w-7xl mx-auto">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                <div class="mb-12 lg:mb-0">
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-6">
+                        <span class="bg-gradient-to-r from-blue-500 via-white to-red-500 bg-clip-text text-transparent glow">VipCoringa</span>
+                        <span class="block text-xl md:text-2xl text-gray-400 mt-4">Ferramentas de Rede e Sistema na Ponta dos Dedos</span>
+                    </h1>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">
+                        A coleção definitiva de comandos CMD do Windows para solução de problemas de rede, gerenciamento Wi-Fi e administração do sistema. Tudo em uma poderosa interface.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#commands" class="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-medium rounded-lg hover:from-blue-700 hover:to-blue-900 transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-blue-500/20">
+                            Explorar Comandos
+                            <i class="fas fa-arrow-down ml-2"></i>
+                        </a>
+                        <a href="#wifi" class="px-8 py-3 border border-gray-700 text-gray-300 font-medium rounded-lg hover:bg-gray-900 hover:text-white transition-all duration-300">
+                            Ferramentas Wi-Fi
+                            <i class="fas fa-wifi ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="relative bg-black border border-gray-800 rounded-xl p-4 shadow-2xl overflow-hidden">
+                        <div class="absolute top-0 left-0 right-0 h-8 bg-gray-900 flex items-center px-3">
+                            <div class="flex space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                            </div>
+                            <div class="text-xs text-gray-400 px-2">cmd.exe</div>
+                        </div>
+                        <div class="mt-8">
+                            <div id="terminal-output" class="font-mono text-xs md:text-sm text-green-400 h-64 overflow-y-auto">
+                            </div>
+                        </div>
+                        <div class="flex items-center bg-gray-900/50 p-2 border-t border-gray-800">
+                            <span class="text-green-500 mr-2">$</span>
+                            <span class="text-blue-400 animate-pulse">|</span>
+                        </div>
+                    </div>
+                    <div class="absolute -right-4 -bottom-4 w-32 h-32 bg-blue-500 rounded-full filter blur-3xl opacity-20 animate-pulse-slow z-0"></div>
+                    <div class="absolute -left-2 -top-4 w-24 h-24 bg-red-500 rounded-full filter blur-3xl opacity-20 animate-pulse-slow z-0"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comandos Section -->
+    <section id="commands" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-blue-400 font-semibold tracking-wider">COLEÇÃO COMPLETA</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Comandos <span class="text-red-400">CMD</span> Essenciais</h2>
+                <p class="max-w-2xl mx-auto text-gray-400">Domine seu ambiente Windows com estas poderosas ferramentas de linha de comando</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- All Comandos Card -->
+                <div class="gradient-border rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+                    <div class="flex items-center justify-center w-12 h-12 bg-blue-900/50 rounded-lg mb-4">
+                        <i class="fas fa-terminal text-blue-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Conjunto Completo de Comandos</h3>
+                    <div class="bg-black rounded-lg p-4 my-4 font-mono text-sm overflow-x-auto">
+                        @echo off & cls & echo === IPCONFIG === & ipconfig /all & echo. & echo === LIMPEZA DE DNS === & ipconfig /flushdns & echo. & echo === INTERFACE WI-FI === & netsh wlan show interfaces & echo. & echo === REDES WI-FI SALVAS === & for /f "tokens=1,2,* delims=:" %a in ('netsh wlan show profiles ^| findstr "Perfil"') do @echo --- %c --- & netsh wlan show profile name="%c" key=clear | findstr "Conteudo da Chave" & echo. & echo === PING GOOGLE === & ping google.com -n 4 & echo. & echo === TABELA ARP === & arp -a & echo. & echo === PORTAS ABERTAS === & netstat -ano & echo. & echo === RESOLUÇÃO DNS === & nslookup google.com & echo. & echo === ENDEREÇO MAC === & getmac & echo. & echo === USUÁRIO ATUAL === & whoami & echo. & echo === FIM === ✅
+                    </div>
+                    <p class="text-gray-400 text-sm">Execute este único comando para obter informações completas de rede e sistema.</p>
+                </div>
+
+                <!-- Wi-Fi Comandos -->
+                <div class="gradient-border rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+                    <div class="flex items-center justify-center w-12 h-12 bg-blue-900/50 rounded-lg mb-4">
+                        <i class="fas fa-wifi text-blue-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Gerenciamento Wi-Fi</h3>
+                    <div class="space-y-4 my-4">
+                        <div>
+                            <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                                netsh wlan show profiles
+                            </div>
+                            <p class="text-gray-400 text-xs mt-1 pl-1">
+                                <span class="block font-semibold text-blue-400">Use quando:</span> 
+                                Precisar ver todas redes Wi-Fi salvas<br>
+                                <span class="block font-semibold text-green-400">Saída:</span> 
+                                Lista de redes no formato "Perfil de todos os usuários: NOMEDAREDE"
+                            </p>
+                        </div>
+                        <div>
+                            <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                                netsh wlan show profile name="NETWORK" key=clear
+                            </div>
+                            <p class="text-gray-400 text-xs mt-1 pl-1">
+                                <span class="block font-semibold text-blue-400">Use quando:</span> 
+                                Quiser ver a senha de uma rede específica<br>
+                                <span class="block font-semibold text-green-400">Dica:</span> 
+                                Substitua NETWORK pelo nome exato da rede. A senha aparece em "Conteúdo da chave"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rede Comandos -->
+                <div class="gradient-border rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+                    <div class="flex items-center justify-center w-12 h-12 bg-blue-900/50 rounded-lg mb-4">
+                        <i class="fas fa-network-wired text-blue-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Ferramentas de Rede</h3>
+                    <div class="space-y-2 my-4">
+                        <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                            ipconfig /all
+                        </div>
+                        <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                            ping google.com -n 4
+                        </div>
+                        <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                            netstat -ano
+                        </div>
+                        <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                            nslookup google.com
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm">Comandos essenciais para diagnóstico e solução de problemas de rede.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wi-Fi Focus Section -->
+    <section id="wifi" class="py-20 px-4 sm:px-6 lg:px-8 bg-black">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-blue-400 font-semibold tracking-wider">GERENCIAMENTO WI-FI</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Ferramentas de <span class="text-red-400">Wi-Fi</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400">Comandos poderosos para gerenciar e solucionar problemas de conexão Wi-Fi</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="order-1 lg:order-1">
+                    <div class="bg-gradient-to-br from-gray-900 to-black rounded-xl p-6 shadow-xl">
+                        <h3 class="text-xl font-bold mb-4 text-white">Comandos Essenciais de Wi-Fi</h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="text-blue-400 mb-2 font-medium">1. Ver redes salvas</h4>
+                            <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto mb-3">
+                                netsh wlan show profiles
+                            </div>
+                            <p class="text-gray-400 text-sm">Lista todas as redes Wi-Fi salvas no computador.</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="text-blue-400 mb-2 font-medium">2. Ver detalhes da rede (incluindo senha)</h4>
+                            <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto mb-3">
+                                netsh wlan show profile name="NETWORK_NAME" key=clear
+                            </div>
+                            <p class="text-gray-400 text-sm">Substitua "NOME_DA_REDE" pelo nome exato da rede. A senha aparecerá em "Conteúdo da Chave".</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="text-blue-400 mb-2 font-medium">3. Ver conexão atual</h4>
+                            <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto mb-3">
+                                netsh wlan show interfaces
+                            </div>
+                            <p class="text-gray-400 text-sm">Mostra a rede Wi-Fi atual, força do sinal, SSID, BSSID, etc.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="order-2 lg:order-2">
+                    <div class="bg-gradient-to-br from-gray-900 to-black rounded-xl p-6 shadow-xl">
+                        <h3 class="text-xl font-bold mb-4 text-white">Operações Avançadas de Wi-Fi</h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="text-blue-400 mb-2 font-medium">4. Exportar perfil de rede para backup</h4>
+                            <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto mb-3">
+                                netsh wlan export profile name="NETWORK_NAME" folder="C:\Backup" key=clear
+                            </div>
+                            <p class="text-gray-400 text-sm">Cria um arquivo .xml com o perfil da rede e senha.</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="text-blue-400 mb-2 font-medium">5. Importar perfil de rede</h4>
+                            <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto mb-3">
+                                netsh wlan add profile filename="C:\Backup\PROFILE.xml"
+                            </div>
+                            <p class="text-gray-400 text-sm">Reinstala um perfil de rede previamente salvo.</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="text-blue-400 mb-2 font-medium">6. Apagar uma rede salva</h4>
+                            <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto mb-3">
+                                netsh wlan delete profile name="NETWORK_NAME"
+                            </div>
+                            <p class="text-gray-400 text-sm">Remove uma rede Wi-Fi dos perfis salvos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rede Comandos Section -->
+    <section id="network" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-blue-400 font-semibold tracking-wider">DIAGNÓSTICO DE REDE</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Comandos de <span class="text-red-400">Rede</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400">Ferramentas essenciais para diagnosticar problemas de rede</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Left Column -->
+                <div>
+                    <div class="mb-8 p-6 gradient-border rounded-xl">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-globe text-blue-400 mr-2"></i>
+                            Configuração de IP
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                                    ipconfig /all
+                                </div>
+                                <p class="text-gray-400 text-xs mt-1">Mostra todas as informações de IP (IPv4, gateway, máscara).</p>
+                            </div>
+                            <div>
+                                <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                                    ipconfig /release
+                                </div>
+                                <p class="text-gray-400 text-xs mt-1">Libera o endereço IP atual.</p>
+                            </div>
+                            <div>
+                                <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                                    ipconfig /renew
+                                </div>
+                                <p class="text-gray-400 text-xs mt-1">Solicita um novo IP do roteador.</p>
+                            </div>
+                            <div>
+                                <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                                    ipconfig /flushdns
+                                </div>
+                                <p class="text-gray-400 text-xs mt-1">Limpa o cache DNS para resolver erros de navegação.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 gradient-border rounded-xl">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-blue-400 mr-2"></i>
+                            Teste de Conexão
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                                    ping google.com
+                                </div>
+                                <p class="text-gray-400 text-xs mt-1">Testa a conectividade com a internet.</p>
+                            </div>
+                            <div>
+                                <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                                    tracert google.com
+                                </div>
+                                <p class="text-gray-400 text-xs mt-1">Exibe o caminho (roteadores) até o destino.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column -->
+                <div>
+                    <div class="mb-8 p-6 gradient-border rounded-xl">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-ethernet text-blue-400 mr-2"></i>
+                            Análise de Rede
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                                    netstat -ano
+                                </div>
+                                <p class="text-gray-400 text-xs mt-1">Mostra todas as conexões ativas e suas portas.</p>
+                            </div>
+                            <div>
+                                <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                                    arp -a
+                                </div>
+                                <p class="text-gray-400 text-xs mt-1">Exibe a tabela ARP (endereços MAC da rede local).</p>
+                            </div>
+                            <div>
+                                <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                                    nslookup google.com
+                                </div>
+                                <p class="text-gray-400 text-xs mt-1">Consulta o IP de um domínio.</p>
+                            </div>
+                            <div>
+                                <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                                    getmac
+                                </div>
+                                <p class="text-gray-400 text-xs mt-1">Mostra o endereço MAC do seu PC.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 gradient-border rounded-xl">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-project-diagram text-blue-400 mr-2"></i>
+                            Ferramentas Avançadas
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                                    route print
+                                </div>
+                                <p class="text-gray-400 text-xs mt-1">Exibe a tabela de roteamento.</p>
+                            </div>
+                            <div>
+                                <div class="bg-black rounded p-3 font-mono text-sm overflow-x-auto">
+                                    net use
+                                </div>
+                                <p class="text-gray-400 text-xs mt-1">Mostra os discos de rede mapeados.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sistema Comandos Section -->
+    <section id="system" class="py-20 px-4 sm:px-6 lg:px-8 bg-black">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-blue-400 font-semibold tracking-wider">ADMINISTRAÇÃO DO SISTEMA</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Comandos de <span class="text-red-400">Administração</span> do Sistema</h2>
+                <p class="max-w-2xl mx-auto text-gray-400">Comandos poderosos para gerenciar e solucionar problemas no seu Windows</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Sistema Info -->
+                <div class="gradient-border rounded-xl p-6 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center justify-center w-10 h-10 bg-blue-900/30 rounded-lg mr-3">
+                            <i class="fas fa-info-circle text-blue-400"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold">Informações do Sistema</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto">
+                            systeminfo
+                        </div>
+                        <p class="text-gray-400 text-sm">Exibe informações completas do sistema, incluindo SO, hardware e mais.</p>
+                    </div>
+                </div>
+
+                <!-- Gerenciamento de Processos -->
+                <div class="gradient-border rounded-xl p-6 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center justify-center w-10 h-10 bg-blue-900/30 rounded-lg mr-3">
+                            <i class="fas fa-tasks text-blue-400"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold">Gerenciamento de Processos</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto">
+                            tasklist
+                        </div>
+                        <p class="text-gray-400 text-sm">Lista todos os processos em execução.</p>
+                        <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto">
+                            taskkill /F /IM process.exe
+                        </div>
+                        <p class="text-gray-400 text-sm">Encerra forçadamente um processo pelo nome.</p>
+                    </div>
+                </div>
+
+                <!-- Controles de Energia -->
+                <div class="gradient-border rounded-xl p-6 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center justify-center w-10 h-10 bg-blue-900/30 rounded-lg mr-3">
+                            <i class="fas fa-power-off text-blue-400"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold">Controles de Energia</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto">
+                            shutdown /r /t 0
+                        </div>
+                        <p class="text-gray-400 text-sm">Reinicia o PC imediatamente.</p>
+                        <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto">
+                            shutdown /s /t 0
+                        </div>
+                        <p class="text-gray-400 text-sm">Desliga o PC imediatamente.</p>
+                    </div>
+                </div>
+
+                <!-- Reparo do Sistema -->
+                <div class="gradient-border rounded-xl p-6 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center justify-center w-10 h-10 bg-blue-900/30 rounded-lg mr-3">
+                            <i class="fas fa-tools text-blue-400"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold">Reparo do Sistema</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto">
+                            sfc /scannow
+                        </div>
+                        <p class="text-gray-400 text-sm">Verifica e repara arquivos corrompidos do sistema.</p>
+                        <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto">
+                            chkdsk /f
+                        </div>
+                        <p class="text-gray-400 text-sm">Verifica e corrige erros no disco.</p>
+                    </div>
+                </div>
+
+                <!-- Gerenciamento de Usuários -->
+                <div class="gradient-border rounded-xl p-6 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center justify-center w-10 h-10 bg-blue-900/30 rounded-lg mr-3">
+                            <i class="fas fa-users text-blue-400"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold">Gerenciamento de Usuários</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto">
+                            whoami
+                        </div>
+                        <p class="text-gray-400 text-sm">Mostra o nome do usuário atual.</p>
+                        <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto">
+                            net user
+                        </div>
+                        <p class="text-gray-400 text-sm">Lista os usuários do sistema.</p>
+                        <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto">
+                            net user username /add
+                        </div>
+                        <p class="text-gray-400 text-sm">Cria um novo usuário.</p>
+                    </div>
+                </div>
+
+                <!-- Programas e Drivers -->
+                <div class="gradient-border rounded-xl p-6 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center justify-center w-10 h-10 bg-blue-900/30 rounded-lg mr-3">
+                            <i class="fas fa-download text-blue-400"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold">Programas e Drivers</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto">
+                            wmic product get name,version
+                        </div>
+                        <p class="text-gray-400 text-sm">Lista os programas instalados.</p>
+                        <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto">
+                            driverquery
+                        </div>
+                        <p class="text-gray-400 text-sm">Lista os drivers instalados.</p>
+                        <div class="bg-gray-900 rounded p-3 font-mono text-sm overflow-x-auto">
+                            msinfo32
+                        </div>
+                        <p class="text-gray-400 text-sm">Abre a interface gráfica de informações do sistema.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="gradient-border-t bg-black/60 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-crown text-red-500 text-2xl mr-2"></i>
+                        <span class="text-2xl font-bold bg-gradient-to-r from-blue-500 via-white to-red-500 bg-clip-text text-transparent glow">VipCoringa</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">A coleção definitiva de ferramentas de rede e administração de sistema para Windows.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">
+                            <i class="fab fa-telegram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">
+                            <i class="fab fa-discord text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Links Rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Início</a></li>
+                        <li><a href="#commands" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Comandos</a></li>
+                        <li><a href="#wifi" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Ferramentas Wi-Fi</a></li>
+                        <li><a href="#network" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Rede</a></li>
+                        <li><a href="#system" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Sistema</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Aviso de Segurança</h3>
+                    <p class="text-gray-400 mb-4 text-sm">Esses comandos fornecem controle poderoso do sistema. Use com responsabilidade apenas em sistemas que você possui ou tem permissão para acessar.</p>
+                    <div class="text-xs text-gray-500">
+                        <p>© 2023 VipCoringa. Todos os comandos são integrados ao Windows.</p>
+                        <p>Este é um guia de referência, não um software de invasão.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+                <p>Criado com <i class="fas fa-heart text-red-500"></i> para administradores de rede e usuários avançados</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 transform translate-y-20 opacity-0 hover:bg-blue-700">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('translate-y-20', 'opacity-0');
+                backToTopButton.classList.add('translate-y-0', 'opacity-100');
+            } else {
+                backToTopButton.classList.remove('translate-y-0', 'opacity-100');
+                backToTopButton.classList.add('translate-y-20', 'opacity-0');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // Terminal animation
+        const terminalOutput = document.getElementById('terminal-output');
+        const commands = [
+            "C:\\Users\\VipCoringa> ipconfig /all",
+            "   Ethernet adapter Ethernet:",
+            "      Connection-specific DNS Suffix  . : ",
+            "      IPv4 Address. . . . . . . . . . . : 192.168.1.42",
+            "      Subnet Mask . . . . . . . . . . . : 255.255.255.0",
+            "      Default Gateway . . . . . . . . . : 192.168.1.1",
+            "",
+            "C:\\Users\\VipCoringa> netsh wlan show profiles",
+            "   Perfil de todos os usuários : VipCoringa_5G",
+            "   Perfil de todos os usuários : VipCoringa_2G",
+            "   Perfil de todos os usuários : NeighborWiFi",
+            "",
+            "C:\\Users\\VipCoringa> netsh wlan show profile name=\"VipCoringa_5G\" key=clear",
+            "   Conteúdo da chave            : V1pC0r1ng4R0ck5!",
+            "",
+            "C:\\Users\\VipCoringa> ping google.com",
+            "   Resposta de 172.217.29.206: bytes=32 tempo=14ms TTL=117",
+            "   Resposta de 172.217.29.206: bytes=32 tempo=13ms TTL=117",
+            "   Resposta de 172.217.29.206: bytes=32 tempo=15ms TTL=117",
+            "   Estatísticas do Ping para 172.217.29.206:",
+            "      Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de perda)",
+            "   Tempo aproximado do percurso em milissegundos:",
+            "      Mínimo = 13ms, Máximo = 15ms, Média = 14ms"
+        ];
+
+        let currentCommand = 0;
+        let currentLine = 0;
+        let typingInterval;
+
+        function typeTerminal() {
+            if (currentCommand < commands.length) {
+                const command = commands[currentCommand];
+                
+                if (currentLine < command.length) {
+                    terminalOutput.innerHTML += command.charAt(currentLine);
+                    currentLine++;
+                    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                } else {
+                    terminalOutput.innerHTML += "<br>";
+                    currentLine = 0;
+                    currentCommand++;
+                    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                    
+                    // Random delay between commands
+                    clearInterval(typingInterval);
+                    const delay = currentCommand % 3 === 0 ? 1000 : 150 + Math.random() * 150;
+                    
+                    setTimeout(() => {
+                        typingInterval = setInterval(typeTerminal, 10 + Math.random() * 30);
+                    }, delay);
+                }
+            } else {
+                // Reset animation
+                clearInterval(typingInterval);
+                setTimeout(() => {
+                    terminalOutput.innerHTML = "";
+                    currentCommand = 0;
+                    currentLine = 0;
+                    typingInterval = setInterval(typeTerminal, 10 + Math.random() * 30);
+                }, 5000);
+            }
+        }
+
+        // Start terminal animation
+        typingInterval = setInterval(typeTerminal, 10 + Math.random() * 30);
+
+        // Theme switch (placeholder for future dark/light toggle)
+        // This can be expanded to include a theme switcher
+    </script>
+  </body>
+</html>
